@@ -24,6 +24,7 @@
 - (void)setup;
 - (void)configureInputBarWithStyle:(JSMessageInputViewStyle)style;
 - (void)configureSendButtonWithStyle:(JSMessageInputViewStyle)style;
+- (void)configureFlagButtonWithStyle:(JSMessageInputViewStyle)style;
 
 @end
 
@@ -70,13 +71,23 @@
     }
     else {
         _textView.frame = CGRectMake(4.0f, 4.5f, width, height);
-        _textView.backgroundColor = [UIColor clearColor];
         _textView.layer.borderColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
         _textView.layer.borderWidth = 0.65f;
         _textView.layer.cornerRadius = 6.0f;
         
-        self.image = [[UIImage imageNamed:@"input-bar-flat"] resizableImageWithCapInsets:UIEdgeInsetsMake(2.0f, 0.0f, 0.0f, 0.0f)
-                                                                            resizingMode:UIImageResizingModeStretch];
+		if (style == JSMessageInputViewStyleFlat) {
+			_textView.frame = CGRectMake(4.0f, 4.5f, width, height);
+			_textView.backgroundColor = [UIColor clearColor];
+			self.image = [[UIImage imageNamed:@"input-bar-flat"] resizableImageWithCapInsets:UIEdgeInsetsMake(2.0f, 0.0f, 0.0f, 0.0f)
+																				resizingMode:UIImageResizingModeStretch];
+		}
+		else if (style == JSMessageInputViewStyleEMPOS) {
+			width = width - 28.0f;
+			_textView.frame = CGRectMake(40.0f, 4.5f, width, height);
+			_textView.backgroundColor = [UIColor whiteColor];
+			self.image = [[UIImage imageNamed:@"input-bar-empos"] resizableImageWithCapInsets:UIEdgeInsetsMake(2.0f, 0.0f, 0.0f, 0.0f)
+																				resizingMode:UIImageResizingModeStretch];
+		}
     }
 }
 
@@ -109,11 +120,11 @@
         sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sendButton.backgroundColor = [UIColor clearColor];
         
-        [sendButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateNormal];
-        [sendButton setTitleColor:[UIColor js_bubbleBlueColor] forState:UIControlStateHighlighted];
+        [sendButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+        [sendButton setTitleColor:[UIColor EMPToolbarBarTintColor] forState:UIControlStateHighlighted];
         [sendButton setTitleColor:[UIColor js_bubbleLightGrayColor] forState:UIControlStateDisabled];
         
-        sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
+        sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
     }
     
     NSString *title = NSLocalizedString(@"Send", nil);
@@ -124,6 +135,18 @@
     sendButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin);
     
     [self setSendButton:sendButton];
+}
+
+- (void)configureFlagButtonWithStyle:(JSMessageInputViewStyle)style {
+	if (style == JSMessageInputViewStyleEMPOS) {
+		UIButton *flagButton;
+		
+		flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
+		[flagButton setBackgroundImage:[UIImage imageNamed:@"input-flag-off"] forState:UIControlStateNormal];
+		flagButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin);
+		
+		[self setFlagButton:flagButton];
+	}
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -137,6 +160,7 @@
         [self setup];
         [self configureInputBarWithStyle:style];
         [self configureSendButtonWithStyle:style];
+		[self configureFlagButtonWithStyle:style];
         
         _textView.delegate = delegate;
         _textView.keyboardDelegate = delegate;
@@ -179,6 +203,20 @@
     
     [self addSubview:btn];
     _sendButton = btn;
+}
+
+- (void)setFlagButton:(UIButton *)flagButton {
+	if (self.style == JSMessageInputViewStyleEMPOS) {
+		if (_flagButton)
+			[_flagButton removeFromSuperview];
+		
+		
+		CGFloat padding = 8.0f;
+		flagButton.frame = CGRectMake(6.0f, padding, 28.0f, self.textView.frame.size.height - padding);
+		
+		[self addSubview:flagButton];
+		_flagButton = flagButton;
+	}
 }
 
 #pragma mark - Message input view

@@ -57,7 +57,7 @@
 	_isUserScrolling = NO;
     
     JSMessageInputViewStyle inputViewStyle = [self.delegate inputViewStyle];
-    CGFloat inputViewHeight = (inputViewStyle == JSMessageInputViewStyleFlat) ? 45.0f : 40.0f;
+    CGFloat inputViewHeight = (inputViewStyle == JSMessageInputViewStyleFlat || inputViewStyle == JSMessageInputViewStyleEMPOS) ? 45.0f : 40.0f;
     
 	JSMessageTableView *tableView = [[JSMessageTableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
 	tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

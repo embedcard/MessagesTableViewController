@@ -26,7 +26,9 @@ typedef NS_ENUM(NSUInteger, JSMessageInputViewStyle) {
     /**
      *  An input view style that has the appearance as seen in iOS 7 and later.
      */
-    JSMessageInputViewStyleFlat
+    JSMessageInputViewStyleFlat,
+	
+	JSMessageInputViewStyleEMPOS
 };
 
 
@@ -51,6 +53,7 @@ typedef NS_ENUM(NSUInteger, JSMessageInputViewStyle) {
  *  @see JSMessageInputViewStyle.
  */
 @property (weak, nonatomic) UIButton *sendButton;
+@property (weak, nonatomic) UIButton *flagButton;
 
 #pragma mark - Initialization
 

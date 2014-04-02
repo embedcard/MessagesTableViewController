@@ -19,7 +19,6 @@
 #import "JSMessageInputView.h"
 #import "JSAvatarImageFactory.h"
 #import "JSBubbleImageViewFactory.h"
-#import "JSMessageSoundEffect.h"
 #import "UIColor+JSMessagesView.h"
 
 /**

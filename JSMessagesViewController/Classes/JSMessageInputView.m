@@ -24,7 +24,6 @@
 - (void)setup;
 - (void)configureInputBarWithStyle:(JSMessageInputViewStyle)style;
 - (void)configureSendButtonWithStyle:(JSMessageInputViewStyle)style;
-- (void)configureFlagButtonWithStyle:(JSMessageInputViewStyle)style;
 
 @end
 
@@ -76,14 +75,11 @@
         _textView.layer.cornerRadius = 6.0f;
         
 		if (style == JSMessageInputViewStyleFlat) {
-			_textView.frame = CGRectMake(4.0f, 4.5f, width, height);
 			_textView.backgroundColor = [UIColor clearColor];
 			self.image = [[UIImage imageNamed:@"input-bar-flat"] resizableImageWithCapInsets:UIEdgeInsetsMake(2.0f, 0.0f, 0.0f, 0.0f)
 																				resizingMode:UIImageResizingModeStretch];
 		}
 		else if (style == JSMessageInputViewStyleEMPOS) {
-			width = width - 28.0f;
-			_textView.frame = CGRectMake(40.0f, 4.5f, width, height);
 			_textView.backgroundColor = [UIColor whiteColor];
 			self.image = [[UIImage imageNamed:@"input-bar-empos"] resizableImageWithCapInsets:UIEdgeInsetsMake(2.0f, 0.0f, 0.0f, 0.0f)
 																				resizingMode:UIImageResizingModeStretch];
@@ -137,18 +133,6 @@
     [self setSendButton:sendButton];
 }
 
-- (void)configureFlagButtonWithStyle:(JSMessageInputViewStyle)style {
-	if (style == JSMessageInputViewStyleEMPOS) {
-		UIButton *flagButton;
-		
-		flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
-		[flagButton setBackgroundImage:[UIImage imageNamed:@"input-flag-off"] forState:UIControlStateNormal];
-		flagButton.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin);
-		
-		[self setFlagButton:flagButton];
-	}
-}
-
 - (instancetype)initWithFrame:(CGRect)frame
                         style:(JSMessageInputViewStyle)style
                      delegate:(id<UITextViewDelegate, JSDismissiveTextViewDelegate>)delegate
@@ -160,7 +144,6 @@
         [self setup];
         [self configureInputBarWithStyle:style];
         [self configureSendButtonWithStyle:style];
-		[self configureFlagButtonWithStyle:style];
         
         _textView.delegate = delegate;
         _textView.keyboardDelegate = delegate;
@@ -203,20 +186,6 @@
     
     [self addSubview:btn];
     _sendButton = btn;
-}
-
-- (void)setFlagButton:(UIButton *)flagButton {
-	if (self.style == JSMessageInputViewStyleEMPOS) {
-		if (_flagButton)
-			[_flagButton removeFromSuperview];
-		
-		
-		CGFloat padding = 8.0f;
-		flagButton.frame = CGRectMake(6.0f, padding, 28.0f, self.textView.frame.size.height - padding);
-		
-		[self addSubview:flagButton];
-		_flagButton = flagButton;
-	}
 }
 
 #pragma mark - Message input view

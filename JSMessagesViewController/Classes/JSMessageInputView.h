@@ -53,7 +53,6 @@ typedef NS_ENUM(NSUInteger, JSMessageInputViewStyle) {
  *  @see JSMessageInputViewStyle.
  */
 @property (weak, nonatomic) UIButton *sendButton;
-@property (weak, nonatomic) UIButton *flagButton;
 
 #pragma mark - Initialization
 

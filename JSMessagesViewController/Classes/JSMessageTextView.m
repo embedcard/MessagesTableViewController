@@ -156,7 +156,7 @@
     [super drawRect:rect];
     
     if ([self.text length] == 0 && self.placeHolder) {
-        CGRect placeHolderRect = CGRectMake(10.0f,
+        CGRect placeHolderRect = CGRectMake(4.0f,
                                             7.0f,
                                             rect.size.width,
                                             rect.size.height);

@@ -116,9 +116,9 @@
         sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sendButton.backgroundColor = [UIColor clearColor];
         
-        [sendButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-        [sendButton setTitleColor:[UIColor EMPToolbarBarTintColor] forState:UIControlStateHighlighted];
-        [sendButton setTitleColor:[UIColor js_bubbleLightGrayColor] forState:UIControlStateDisabled];
+        [sendButton setTitleColor:[UIColor EMPHyperTextLinkColor] forState:UIControlStateNormal];
+        [sendButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        [sendButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
         
         sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
     }
